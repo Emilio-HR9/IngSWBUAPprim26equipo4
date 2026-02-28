@@ -1,1 +1,4 @@
-EN: Application for Rehabilitation Therapy that tracks rehabilitation progress for patients and therapists. Specifically focuses on the Execution module with Sensor Integration (biometry), assigned to Team 4 of class ISTI-200-001, Spring 2026 at BUAP. ES: Aplicación para Terapia Rehabilitatoria que registra el progreso de rehabilitación de pacientes y terapeutas. Se enfoca específicamente en el módulo de Ejecución con Integración de Sensores (biometría), asignado al equipo 4 de la clase ISTI-200-001, Primavera 2026 en BUAP.
+Espanol mas abajo
+EN: Application for Rehabilitation Therapy that tracks rehabilitation progress for patients and therapists. Specifically focuses on the Execution module with Sensor Integration (biometry), assigned to Team 4 of class ISTI-200-001, Spring 2026 at BUAP. 
+
+ES: Aplicación para Terapia Rehabilitatoria que registra el progreso de rehabilitación de pacientes y terapeutas. Se enfoca específicamente en el módulo de Ejecución con Integración de Sensores (biometría), asignado al equipo 4 de la clase ISTI-200-001, Primavera 2026 en BUAP.
