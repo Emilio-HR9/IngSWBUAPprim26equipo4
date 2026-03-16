@@ -1,1 +1,137 @@
-<app-modulo4-presentacion></app-modulo4-presentacion>
+<div class="main-layout">
+  <header class="content-header">
+    <div class="day-selector">
+      <span class="day active">• Día 1</span>
+      <span class="day">Día 2</span>
+      <span class="day">Día 3</span>
+      <span class="day">Día 4</span>
+    </div>
+  </header>
+
+  <div class="content-grid">
+    
+    <section class="left-column">
+      
+      <div class="card video-card">
+        <div class="card-header">
+          <div class="title-group">
+            <h3>Ejercicio 1 de 5</h3>
+            <p class="subtitle">Sentadilla Asistida</p> </div>
+        </div>
+        
+        <div class="video-player-container">
+          <video autoplay loop muted playsinline class="exercise-video">
+            <source src="video_ejercicio.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+          </video>
+          
+          <div class="video-controls">
+            <button class="play-pause-btn">||</button>
+            <div class="video-progress-bar">
+              <div class="progress" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise-stats">
+          <div class="stat-item">
+            <span class="stat-icon stretch-icon">🧘‍♂️</span>
+            <div class="stat-info">
+              <span class="stat-value">Fortalecimiento</span> <span class="stat-label">TIPO</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon diff-icon">⭐</span>
+            <div class="stat-info">
+              <span class="stat-value">Baja</span>
+              <span class="stat-label">DIFICULTAD</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon time-icon">⏱️</span>
+            <div class="stat-info">
+              <span class="stat-value">10 min</span> <span class="stat-label">TIEMPO SESIÓN</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon rest-icon">⏳</span>
+            <div class="stat-info">
+              <span class="stat-value">30 seg</span> <span class="stat-label">DESCANSO / SERIE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="right-column">
+
+      <div class="card description-card">
+        <div class="card-header">
+          <h3>INSTRUCCIONES</h3>
+        </div>
+        <div class="card-content">
+          <div class="desc-step">
+            <span class="step-number">1</span>
+            <div class="step-text">
+              <strong>Posición inicial:</strong>
+              <p>Colóquese de pie frente a una silla firme y agárrese del respaldo.</p>
+            </div>
+          </div>
+          <div class="desc-step">
+            <span class="step-number">2</span>
+            <div class="step-text">
+              <strong>Movimiento:</strong>
+              <p>Mantenga la espalda recta y baje lentamente como si se fuera a sentar. No baje más allá de 90 grados.</p>
+            </div>
+          </div>
+          <div class="desc-step">
+            <span class="step-number">3</span>
+            <div class="step-text">
+              <strong>Retorno:</strong>
+              <p>Use la fuerza de sus piernas para volver a la posición inicial.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card exercises-list-card">
+        <div class="card-header">
+          <h3>TU RUTINA</h3>
+        </div>
+        <div class="card-content">
+          <div class="exercise-list-item active">
+            <div class="ex-thumb"></div>
+            <div class="ex-info">
+              <p class="ex-name">Sentadilla Asistida</p>
+              <p class="ex-meta">3 series de 10 reps</p>
+            </div>
+            <span class="status-icon">🟠</span>
+          </div>
+          
+          <div class="exercise-list-item done">
+            <div class="ex-thumb"></div>
+            <div class="ex-info">
+              <p class="ex-name">Flexión de rodilla</p>
+              <p class="ex-meta">2 series de 12 reps</p>
+            </div>
+            <span class="status-icon done-icon">✅</span>
+          </div>
+
+          <div class="exercise-list-item">
+            <div class="ex-thumb"></div>
+            <div class="ex-info">
+              <p class="ex-name">Elevación de talón</p>
+              <p class="ex-meta">3 series de 15 reps</p>
+            </div>
+            <span class="status-icon">⚪</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-container">
+        <button class="btn-start" (click)="comenzar()">Comenzar Ejercicio</button>
+      </div>
+
+    </section>
+  </div>
+</div>

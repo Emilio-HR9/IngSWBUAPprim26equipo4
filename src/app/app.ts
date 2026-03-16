@@ -13,4 +13,7 @@ import { Modulo4PresentacionComponent } from './componentes/modulo4-presentacion
 })
 export class AppComponent {
   title = 'modulo4-frontend';
+  comenzar() {
+    console.log("Iniciando ejercicio...");
+  }
 }
