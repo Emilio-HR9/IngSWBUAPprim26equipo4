@@ -1,0 +1,20 @@
+<div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+  <h1 style="font-size: 2.5rem; color: #1a1a1a;">Sentadilla Asistida</h1>
+
+  <div style="margin: 20px 0;">
+    <video autoplay loop muted [muted]="true" playsinline preload="auto" style="width: 100%; max-width: 500px; border-radius: 12px;">
+      <source src="video_ejercicio.mp4" type="video/mp4">
+      Tu navegador no soporta videos.
+    </video>
+  </div>
+
+  <p style="font-size: 1.3rem;">
+    <strong>Instrucciones:</strong> Mantenga la espalda recta y baje lentamente.<br>
+    3 series de 10 repeticiones | 30s descanso
+  </p>
+
+  <button [disabled]="!botonHabilitado" [style.background-color]="botonHabilitado ? '#28a745' : '#ccc'"
+    style="color: white; font-size: 1.5rem; padding: 15px 40px; border: none; border-radius: 8px; cursor: pointer;">
+    {{ botonHabilitado ? 'Comenzar' : 'Vea el video (5s)...' }}
+  </button>
+</div>
