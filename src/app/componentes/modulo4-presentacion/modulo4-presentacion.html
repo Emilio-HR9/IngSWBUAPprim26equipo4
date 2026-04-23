@@ -14,7 +14,10 @@
   </p>
 
   <button [disabled]="!botonHabilitado" [style.background-color]="botonHabilitado ? '#28a745' : '#ccc'"
-    style="color: white; font-size: 1.5rem; padding: 15px 40px; border: none; border-radius: 8px; cursor: pointer;">
+    style="color: white; font-size: 1.5rem; padding: 15px 40px; border: none; border-radius: 8px; cursor: pointer;"
+    [routerLink]="botonHabilitado ? '/retroalimentacion' : null">
+
     {{ botonHabilitado ? 'Comenzar' : 'Vea el video (5s)...' }}
+    
   </button>
 </div>
