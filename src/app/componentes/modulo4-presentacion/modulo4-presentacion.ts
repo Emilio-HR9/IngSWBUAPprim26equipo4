@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common'; // <-- Agrega esta línea
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-modulo4-presentacion',
   standalone: true, // Asegúrate de que esto diga true
-  imports: [CommonModule], // <-- Agrégalo aquí también
+  imports: [CommonModule, RouterLink], // <-- Agrégalo aquí también
   templateUrl: './modulo4-presentacion.html',
   styleUrl: './modulo4-presentacion.css'
 })
