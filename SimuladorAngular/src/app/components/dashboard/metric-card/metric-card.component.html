@@ -1,0 +1,39 @@
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-600 transition-all duration-200 hover:scale-[1.02]">
+  <div class="flex items-start justify-between mb-3">
+    <div>
+      <p class="text-slate-400 text-sm">{{ title }}</p>
+      <p class="text-2xl font-bold mt-1" [style.color]="accentColor">
+        {{ value || '--' }}
+        @if (unit && value) {
+          <span class="text-sm font-normal text-slate-400 ml-1">{{ unit }}</span>
+        }
+      </p>
+    </div>
+    <div
+      class="w-10 h-10 rounded-lg flex items-center justify-center"
+      [style.backgroundColor]="accentColor + '20'"
+    >
+      <span [style.color]="accentColor" [innerHTML]="safeIcon"></span>
+    </div>
+  </div>
+
+  <!-- Sparkline de tendencia de 7 dias -->
+  <div class="flex items-end justify-between gap-2">
+    @if (sparklineData && sparklineData.length > 0) {
+      <div class="flex-1 h-10 relative overflow-hidden">
+        <canvas baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="'line'">
+        </canvas>
+      </div>
+    }
+
+    <!-- Porcentaje de cambio -->
+    @if (changePercent !== null && changePercent !== undefined) {
+      <span class="text-xs font-medium px-1.5 py-0.5 rounded flex-shrink-0" [ngClass]="getChangeClass()">
+        {{ getChangeText() }}
+      </span>
+    }
+  </div>
+</div>

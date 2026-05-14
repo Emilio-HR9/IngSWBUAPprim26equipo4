@@ -1,0 +1,16 @@
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+  <h3 class="text-white font-semibold mb-4">Variabilidad Cardíaca (HRV)</h3>
+  <div class="h-52">
+    @if (lineChartData.datasets.length > 0) {
+      <canvas baseChart
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [type]="'line'">
+      </canvas>
+    } @else {
+      <div class="h-full flex items-center justify-center text-slate-500">
+        Sin datos disponibles
+      </div>
+    }
+  </div>
+</div>

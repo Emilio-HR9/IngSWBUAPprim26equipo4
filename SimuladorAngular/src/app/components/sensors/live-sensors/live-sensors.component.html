@@ -1,0 +1,100 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-white">Sensores en Vivo</h1>
+
+    <!-- Selector de estado de actividad -->
+    <div class="flex gap-1 bg-slate-900 border border-slate-800 rounded-lg p-1">
+      <button
+        (click)="setEstado('reposo')"
+        class="px-3 py-1.5 rounded text-xs font-medium transition-colors"
+        [ngClass]="estado === 'reposo' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >Reposo</button>
+      <button
+        (click)="setEstado('caminando')"
+        class="px-3 py-1.5 rounded text-xs font-medium transition-colors"
+        [ngClass]="estado === 'caminando' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >Caminando</button>
+      <button
+        (click)="setEstado('corriendo')"
+        class="px-3 py-1.5 rounded text-xs font-medium transition-colors"
+        [ngClass]="estado === 'corriendo' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >Corriendo</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <!-- Panel Acelerometro -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <h3 class="text-white font-semibold mb-4">Acelerómetro (m/s²)</h3>
+
+      <!-- Valores actuales -->
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        @for (axis of ['x', 'y', 'z']; track axis) {
+          <div class="bg-slate-950 rounded-lg p-3 text-center border border-slate-800">
+            <p class="text-xs text-slate-400 uppercase mb-1">Eje {{ axis | uppercase }}</p>
+            <p class="text-lg font-mono font-semibold text-white">
+              {{ sensorData ? formatValue(sensorData.acelerometro[axis]) : '0.00' }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <!-- Grafica en tiempo real -->
+      <div class="h-48">
+        @if (accelChartData.datasets.length > 0) {
+          <canvas baseChart
+            [data]="accelChartData"
+            [options]="accelOptions"
+            [type]="'line'">
+          </canvas>
+        }
+      </div>
+    </div>
+
+    <!-- Panel Giroscopio -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <h3 class="text-white font-semibold mb-4">Giroscopio (°/s)</h3>
+
+      <!-- Valores actuales -->
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        <div class="bg-slate-950 rounded-lg p-3 text-center border border-slate-800">
+          <p class="text-xs text-slate-400 uppercase mb-1">Roll</p>
+          <p class="text-lg font-mono font-semibold text-white">
+            {{ sensorData ? formatValue(sensorData.giroscopio['x']) : '0.00' }}
+          </p>
+        </div>
+        <div class="bg-slate-950 rounded-lg p-3 text-center border border-slate-800">
+          <p class="text-xs text-slate-400 uppercase mb-1">Pitch</p>
+          <p class="text-lg font-mono font-semibold text-white">
+            {{ sensorData ? formatValue(sensorData.giroscopio['y']) : '0.00' }}
+          </p>
+        </div>
+        <div class="bg-slate-950 rounded-lg p-3 text-center border border-slate-800">
+          <p class="text-xs text-slate-400 uppercase mb-1">Yaw</p>
+          <p class="text-lg font-mono font-semibold text-white">
+            {{ sensorData ? formatValue(sensorData.giroscopio['z']) : '0.00' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Grafica en tiempo real -->
+      <div class="h-48">
+        @if (gyroChartData.datasets.length > 0) {
+          <canvas baseChart
+            [data]="gyroChartData"
+            [options]="gyroOptions"
+            [type]="'line'">
+          </canvas>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Info del estado -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+    <p class="text-slate-400 text-sm">
+      Estado actual: <span class="text-emerald-500 font-medium capitalize">{{ estado }}</span>
+      — Los valores se actualizan cada 100ms
+    </p>
+  </div>
+</div>

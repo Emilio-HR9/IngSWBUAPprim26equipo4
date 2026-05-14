@@ -1,0 +1,14 @@
+# Node
+node_modules/
+dist/
+.angular/
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp

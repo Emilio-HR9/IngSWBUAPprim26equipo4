@@ -1,0 +1,80 @@
+<div class="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
+  <!-- Modal de permisos -->
+  <div class="w-full max-w-md bg-slate-900 rounded-2xl border border-slate-800 p-6">
+    <!-- Header con logos -->
+    <div class="text-center mb-6">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center">
+          <span class="text-white font-bold">HS</span>
+        </div>
+        <div class="text-slate-500 text-2xl">+</div>
+        <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center">
+          <span class="text-slate-300 font-bold text-sm">{{ device?.marca?.charAt(0) }}</span>
+        </div>
+      </div>
+      <h2 class="text-lg font-semibold text-white">
+        HealthSync solicita acceso a tu
+      </h2>
+      <p class="text-emerald-500 font-medium">{{ device?.nombre }}</p>
+    </div>
+
+    <!-- Lista de permisos con checkboxes -->
+    <div class="space-y-3 mb-6">
+      @for (perm of permissions; track perm.id) {
+        <button
+          (click)="togglePermission(perm.id)"
+          class="w-full flex items-center gap-4 p-3 rounded-lg text-left transition-colors"
+          [ngClass]="[
+            selected.includes(perm.id) ? 'bg-slate-800' : 'bg-slate-800/50',
+            perm.required ? 'cursor-default' : 'cursor-pointer hover:bg-slate-800'
+          ]"
+        >
+          <!-- Checkbox -->
+          <div class="w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0"
+               [ngClass]="[
+                 selected.includes(perm.id) ? 'bg-emerald-500 border-emerald-500' : 'border-slate-600',
+                 perm.required ? 'opacity-70' : ''
+               ]">
+            @if (selected.includes(perm.id)) {
+              <span class="text-white text-xs font-bold">&#10003;</span>
+            }
+          </div>
+
+          <!-- Icono (SVG estatico para no usar dependencias de iconos complejas) -->
+          <div [ngClass]="selected.includes(perm.id) ? 'text-emerald-500' : 'text-slate-500'">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+
+          <!-- Texto -->
+          <div class="flex-1">
+            <p class="text-sm font-medium text-white">
+              {{ perm.label }}
+              @if (perm.required) {
+                <span class="text-xs text-slate-500 ml-2">(requerido)</span>
+              }
+            </p>
+            <p class="text-xs text-slate-400">{{ perm.description }}</p>
+          </div>
+        </button>
+      }
+    </div>
+
+    <!-- Botones de accion -->
+    <div class="flex gap-3">
+      <button
+        (click)="cancel()"
+        class="flex-1 py-3 rounded-lg font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors"
+      >
+        Cancelar
+      </button>
+      <button
+        (click)="handleAuthorize()"
+        class="flex-1 py-3 rounded-lg font-semibold bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+      >
+        Autorizar
+      </button>
+    </div>
+  </div>
+</div>

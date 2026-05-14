@@ -1,0 +1,30 @@
+<div class="min-h-screen bg-slate-950 flex">
+  <!-- Sidebar de navegacion -->
+  <app-sidebar
+    [isOpen]="sidebarOpen"
+    (closeSidebar)="toggleSidebar(false)"
+  ></app-sidebar>
+
+  <!-- Area principal: header + contenido -->
+  <div class="flex-1 flex flex-col min-h-screen lg:min-w-0">
+    <app-header
+      (menuClick)="toggleSidebar(true)"
+      [deviceName]="deviceName"
+      [unreadAlerts]="unreadAlerts"
+    ></app-header>
+
+    <!-- Contenido de la pagina actual -->
+    <main class="flex-1 p-4 lg:p-6 overflow-y-auto">
+      @if (loading) {
+        <div class="flex items-center justify-center py-20">
+          <div class="text-center">
+            <div class="w-10 h-10 border-3 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mx-auto mb-3"></div>
+            <p class="text-slate-400 text-sm">Cargando...</p>
+          </div>
+        </div>
+      } @else {
+        <router-outlet></router-outlet>
+      }
+    </main>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-white font-semibold">Frecuencia Cardíaca</h3>
+    <div class="flex gap-1 bg-slate-950 rounded-lg p-1">
+      <button
+        (click)="setRange('24h')"
+        class="px-3 py-1 rounded text-xs font-medium transition-colors"
+        [ngClass]="range === '24h' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >24h</button>
+      <button
+        (click)="setRange('7d')"
+        class="px-3 py-1 rounded text-xs font-medium transition-colors"
+        [ngClass]="range === '7d' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >7d</button>
+      <button
+        (click)="setRange('30d')"
+        class="px-3 py-1 rounded text-xs font-medium transition-colors"
+        [ngClass]="range === '30d' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+      >30d</button>
+    </div>
+  </div>
+
+  <div class="h-64">
+    @if (lineChartData.datasets.length > 0) {
+      <canvas baseChart
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [type]="'line'">
+      </canvas>
+    } @else {
+      <div class="h-full flex items-center justify-center text-slate-500">
+        Sin datos disponibles
+      </div>
+    }
+  </div>
+</div>

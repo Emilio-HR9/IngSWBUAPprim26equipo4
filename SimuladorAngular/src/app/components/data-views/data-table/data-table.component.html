@@ -1,0 +1,121 @@
+<div class="space-y-4">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-white">Datos Detallados</h1>
+    <button
+      (click)="handleExport()"
+      [disabled]="data.length === 0"
+      class="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Exportar CSV
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+    <div class="flex flex-wrap items-end gap-4">
+      <div class="flex items-center gap-2 text-slate-400 mb-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+        <span class="text-sm font-medium">Filtros</span>
+      </div>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Tipo de dato</label>
+        <select
+          [(ngModel)]="filterType"
+          (change)="onFilterChange()"
+          class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+        >
+          @for (opt of typeOptions; track opt.value) {
+            <option [value]="opt.value">{{ opt.label }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Desde</label>
+        <input
+          type="date"
+          [(ngModel)]="startDate"
+          (change)="onFilterChange()"
+          class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+        />
+      </div>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Hasta</label>
+        <input
+          type="date"
+          [(ngModel)]="endDate"
+          (change)="onFilterChange()"
+          class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+        />
+      </div>
+      <span class="text-xs text-slate-500 mb-2">{{ data.length }} registros</span>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 overflow-x-auto">
+    @if (loading) {
+      <div class="flex items-center justify-center py-10">
+        <div class="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
+      </div>
+    } @else if (pageData.length > 0) {
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-slate-700">
+            <th class="text-left py-3 px-2 text-slate-400 font-medium">Fecha</th>
+            <th class="text-left py-3 px-2 text-slate-400 font-medium">Hora</th>
+            <th class="text-left py-3 px-2 text-slate-400 font-medium">Tipo</th>
+            <th class="text-right py-3 px-2 text-slate-400 font-medium">Valor</th>
+            <th class="text-left py-3 px-2 text-slate-400 font-medium">Unidad</th>
+            <th class="text-left py-3 px-2 text-slate-400 font-medium hidden sm:table-cell">Dispositivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of pageData; track row.fecha + row.tipo) {
+            <tr class="border-b border-slate-800 hover:bg-slate-700/30">
+              <td class="py-2.5 px-2 text-slate-300">{{ getDatePart(row.fecha) }}</td>
+              <td class="py-2.5 px-2 text-slate-300">{{ getTimePart(row.fecha) }}</td>
+              <td class="py-2.5 px-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-700 text-slate-300">
+                  {{ row.tipo }}
+                </span>
+              </td>
+              <td class="py-2.5 px-2 text-right text-white font-medium">{{ row.valor }}</td>
+              <td class="py-2.5 px-2 text-slate-400">{{ row.unidad }}</td>
+              <td class="py-2.5 px-2 text-slate-500 hidden sm:table-cell">{{ deviceName }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Paginacion -->
+      @if (totalPages > 1) {
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-700">
+          <button
+            (click)="setPage(page > 0 ? page - 1 : 0)"
+            [disabled]="page === 0"
+            class="flex items-center gap-1 px-3 py-1.5 text-sm text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>
+            Anterior
+          </button>
+          <span class="text-sm text-slate-400">
+            Página {{ page + 1 }} de {{ totalPages }}
+          </span>
+          <button
+            (click)="setPage(page < totalPages - 1 ? page + 1 : totalPages - 1)"
+            [disabled]="page >= totalPages - 1"
+            class="flex items-center gap-1 px-3 py-1.5 text-sm text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            Siguiente
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+      }
+    } @else {
+      <div class="text-center py-10 text-slate-500">
+        No hay datos disponibles con los filtros seleccionados
+      </div>
+    }
+  </div>
+</div>

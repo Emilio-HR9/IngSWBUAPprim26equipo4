@@ -1,0 +1,94 @@
+<div class="space-y-4">
+  <h1 class="text-2xl font-bold text-white">Alertas de Salud</h1>
+
+  <!-- Filtros -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+    <div class="flex flex-wrap items-center gap-4">
+      <div class="flex items-center gap-2 text-slate-400">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+        <span class="text-sm font-medium">Filtros</span>
+      </div>
+      <div class="flex gap-1 bg-slate-950 rounded-lg p-1">
+        <button
+          (click)="setFilter('todas')"
+          class="px-3 py-1.5 rounded text-xs font-medium transition-colors"
+          [ngClass]="filter === 'todas' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+        >Todas</button>
+        <button
+          (click)="setFilter('no_leidas')"
+          class="px-3 py-1.5 rounded text-xs font-medium transition-colors"
+          [ngClass]="filter === 'no_leidas' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-white'"
+        >No leídas</button>
+      </div>
+      <select
+        [(ngModel)]="severityFilter"
+        class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white outline-none"
+      >
+        <option value="">Todas las severidades</option>
+        <option value="alta">Alta</option>
+        <option value="media">Media</option>
+        <option value="baja">Baja</option>
+      </select>
+      <span class="text-xs text-slate-500">{{ getFilteredAlerts().length }} alertas</span>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="flex items-center justify-center py-20">
+      <div class="w-10 h-10 border-3 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
+    </div>
+  } @else {
+    <!-- Lista de alertas -->
+    @if (getFilteredAlerts().length > 0) {
+      <div class="space-y-3">
+        @for (alert of getFilteredAlerts(); track alert.id) {
+          <div
+            class="bg-slate-900 border border-slate-800 rounded-xl p-5 border-l-4"
+            [ngClass]="[severityConfig[alert.severidad]?.border || severityConfig['baja'].border, alert.leida ? 'opacity-60' : '']"
+          >
+            <div class="flex items-start gap-4">
+              <!-- Icono de severidad -->
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" [ngClass]="severityConfig[alert.severidad]?.bg || severityConfig['baja'].bg">
+                <svg class="w-5 h-5" [ngClass]="severityConfig[alert.severidad]?.color || severityConfig['baja'].color" fill="currentColor" viewBox="0 0 24 24" [innerHTML]="severityConfig[alert.severidad]?.icon || severityConfig['baja'].icon"></svg>
+              </div>
+
+              <!-- Contenido -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-xs font-medium px-2 py-0.5 rounded-full" [ngClass]="(severityConfig[alert.severidad]?.bg || severityConfig['baja'].bg) + ' ' + (severityConfig[alert.severidad]?.color || severityConfig['baja'].color)">
+                    {{ severityConfig[alert.severidad]?.label || severityConfig['baja'].label }}
+                  </span>
+                  <span class="text-xs text-slate-500">
+                    {{ formatRelativeTime(alert.registrado_en) }}
+                  </span>
+                </div>
+                <p class="text-white text-sm">{{ alert.mensaje }}</p>
+                <p class="text-slate-500 text-xs mt-1">
+                  {{ formatDateTime(alert.registrado_en) }}
+                </p>
+              </div>
+
+              <!-- Boton marcar como leida -->
+              @if (!alert.leida) {
+                <button
+                  (click)="markAlertAsRead(alert.id)"
+                  class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition-colors flex-shrink-0 cursor-pointer"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  Leída
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div class="text-center py-10 text-slate-500">
+          <svg class="w-10 h-10 mx-auto mb-3 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <p>No hay alertas {{ filter === 'no_leidas' ? 'sin leer' : '' }}</p>
+        </div>
+      </div>
+    }
+  }
+</div>

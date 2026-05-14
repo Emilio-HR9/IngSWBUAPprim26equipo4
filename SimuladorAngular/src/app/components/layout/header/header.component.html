@@ -1,0 +1,42 @@
+<header class="h-16 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 lg:px-6">
+  <!-- Lado izquierdo: hamburger + titulo -->
+  <div class="flex items-center gap-3">
+    <button
+      (click)="onMenuClick()"
+      class="lg:hidden text-slate-400 hover:text-white p-1"
+    >
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+      </svg>
+    </button>
+    <h1 class="text-lg font-semibold text-white hidden sm:block">HealthSync</h1>
+  </div>
+
+  <!-- Centro: info del dispositivo conectado -->
+  <div class="flex items-center gap-2">
+    @if (deviceName) {
+      <svg class="w-2.5 h-2.5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>
+      <span class="text-sm text-slate-300">{{ deviceName }}</span>
+      <span class="text-xs text-slate-500 hidden sm:inline">- Conectado</span>
+    } @else {
+      <span class="text-sm text-slate-500">Sin dispositivo</span>
+    }
+  </div>
+
+  <!-- Lado derecho: boton de alertas con badge -->
+  <button
+    (click)="goToAlerts()"
+    class="relative text-slate-400 hover:text-white p-1"
+  >
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+    </svg>
+    @if (unreadAlerts > 0) {
+      <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-medium">
+        {{ unreadAlerts > 99 ? '99' : unreadAlerts }}
+      </span>
+    }
+  </button>
+</header>
