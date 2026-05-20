@@ -25,3 +25,16 @@ def upload_evaluacion():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+@app.route("/")
+def home():
+    return {"message": "API de Terapia de Rehabilitación funcionando"}
+
+@app.route("/ejercicio")
+def ejercicio():
+    return {
+        "nombre": "Elevación de pierna",
+        "series": 3,
+        "repeticiones": 10,
+        "descanso": 30
+    }
+
