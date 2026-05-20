@@ -1,0 +1,23 @@
+<div class="upload-container">
+  <div class="header">
+    <h2>Gestión de Expedientes Clínicos</h2>
+    <p class="subtitle">Módulo de Ejecución e Integración de Datos</p>
+  </div>
+  
+  <div class="card">
+    <label><strong>1. Registro de Asistencia a Terapia (.htm):</strong></label>
+    <p class="description">Seleccione el archivo generado por el sistema de citas.</p>
+    <input type="file" (change)="onFileSelected($event, 'asistencia')" accept=".htm,.html">
+  </div>
+
+  <div class="card">
+    <label><strong>2. Evaluaciones de Progreso y Biometría (.xlsx):</strong></label>
+    <p class="description">Suba el reporte de sensores o escala de evaluación del paciente.</p>
+    <input type="file" (change)="onFileSelected($event, 'calificaciones')" accept=".xlsx">
+  </div>
+
+  <div class="status-box">
+    <p><strong>Estado actual del expediente:</strong></p>
+    <span class="badge">{{ estadoGuardado }}</span>
+  </div>
+</div>
