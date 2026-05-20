@@ -6,11 +6,8 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class AppComponent {
   title = 'modulo4-frontend';
-  comenzar() {
-    console.log("Iniciando ejercicio...");
-  }
 }
