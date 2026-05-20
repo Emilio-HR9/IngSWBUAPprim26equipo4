@@ -10,4 +10,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'modulo4-frontend';
+  comenzar() {
+    console.log("Iniciando ejercicio...");
+  }
 }
