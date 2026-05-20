@@ -19,7 +19,7 @@
         </div>
 
         <div class="video-player-container">
-          <video autoplay loop muted playsinline class="exercise-video">
+          <video #videoPlayer autoplay loop muted playsinline class="exercise-video" (loadedmetadata)="playVideo()">
             <source src="video_ejercicio.mp4" type="video/mp4" />
             Tu navegador no soporta video.
           </video>
