@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-color: #f4f7f6;
+  --card-bg: #ffffff;
+  --accent: #4a90e2;
+  --text-dark: #2c3e50;
+  --text-light: #95a5a6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+}
